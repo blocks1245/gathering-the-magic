@@ -10,12 +10,18 @@
 
   // pages
   import Home from './pages/Home.svelte';
+  import CardInfoPage from './pages/CardInfoPage.svelte';
 
   let page;
+  let params;
   let currentRoute;
 
   router('/', (ctx) => {
     page = Home;
+    currentRoute = ctx.pathname;
+  });
+  router('/card-info', (ctx) => {
+    page = CardInfoPage;
     currentRoute = ctx.pathname;
   });
   router.start();
@@ -23,7 +29,7 @@
 
 <main>
   <Header active={currentRoute}/>
-  <svelte:component this={page}/>
+  <svelte:component this={page} {params}/>
 </main>
 
 <style>
@@ -33,8 +39,10 @@
 }
 
 main {
-  /*text-align: center;*/
-  /*padding: 1em;*/
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  text-align: center;
   margin: 0 auto;
   width: 100vw;
 }

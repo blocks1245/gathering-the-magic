@@ -4,6 +4,7 @@
 <nav>
     <ul>
         <li><a class:active={active === "/"} href="/">Home</a></li>
+        <li><a class:active={active === "/card-info"} href="/card-info">Card info</a></li>
     </ul>
 </nav>
 

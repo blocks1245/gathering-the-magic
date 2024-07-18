@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: gtm
       POSTGRES_DB: gtm
     volumes:
-      - ./backend/src/database/data:/var/lib/postgresql/data
+      - ./backend/databases/all-cards/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U gtm"]
       interval: 5s
@@ -19,7 +19,7 @@ services:
       - 5432:5432
 
   db_init:
-    build: ./backend/src/database/.
+    build: ./backend/databases/all-cards/.
     depends_on:
       db:
         condition: service_healthy

@@ -4,6 +4,7 @@
     export let height;
 
     let card_json = {};
+    let mana_cost= [""];
 
     async function getCard(id) {
         const url = "https://api.scryfall.com/cards/" + id
@@ -13,17 +14,25 @@
                 throw new Error(`Response status: ${response.status}`);
             }
             card_json = await response.json();
-            console.log(card_json);
-
         } catch (error) {
             console.error(error.message);
         }
     }
 
-    if (id) {
-        getCard(id);
-        console.log(card_json.image_uris);
+    async function getmanacost(input) {
+        let commaSeparated = input.replace(/}{/g, ',');
+        let noBraces = commaSeparated.replace(/{/g, '').replace(/}/g, '');
+        mana_cost = noBraces.split(/,/g);
+    };
+
+    async function main() {
+        if (id) {
+            await getCard(id);
+            getmanacost(card_json.mana_cost)
+        }
     }
+
+    main()
 </script>
 
 <main>
@@ -45,7 +54,12 @@
         <div class="column">
             <div class="row">
                 <div class="container" style="height: {height}px; overflow-y: scroll; overflow-x:hidden">
-                    <h2 class="card_info">{card_json.name} {card_json.mana_cost}</h2>
+                    <h2 class="card_info">{card_json.name}
+                    <!-- Mana cost -->
+                    {#each mana_cost as symbol}
+                    <i class="ms ms-{symbol.toLowerCase()} ms-cost ms-shadow"></i>&nbsp;
+                    {/each}
+                    </h2>
                     <hr class="card_info_line">
                     <p class="card_info">{card_json.type_line} *verander "{card_json.set}" en "{card_json.rarity}" naar logo*</p>
                     <p class="card_info">{card_json.oracle_text}</p>

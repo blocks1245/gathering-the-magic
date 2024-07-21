@@ -6,7 +6,7 @@
 </script>
 
 <main>
-    <CardInfo id={id} width=100 height=500/>
+    <CardInfo id={id} width=700 height=500/>
 </main>
 
 <style>

@@ -27,6 +27,11 @@
   router.start();
 </script>
 
+<svelte:head>
+  <link rel="stylesheet" href="src\css\keyrune.css" />
+  <link rel="stylesheet" href="src\css\mana.css" />
+</svelte:head>
+
 <main>
   <Header active={currentRoute}/>
   <svelte:component this={page} {params}/>

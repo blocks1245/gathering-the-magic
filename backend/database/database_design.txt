@@ -1,0 +1,44 @@
+Table user {
+  id serial pk
+  username varchar [not null]
+  password varchar [not null]
+  is_deleted boolean
+}
+
+Table auth_log {
+  id serial pk
+  timestamp timestamp
+  user_id integer
+  status varchar
+}
+
+Table owned {
+  user_id integer
+  card_id varchar 
+  amount integer
+  description text
+}
+
+Table card_list {
+  id serial pk
+  user_id integer
+  name varchar
+  card_id varchar
+  amount integer
+  description text
+}
+
+Table cards {
+  id varchar pk
+  name varchar
+}
+
+Ref: "user"."id" < "owned"."user_id"
+
+Ref: "user"."id" < "auth_log"."user_id"
+
+Ref: "user"."id" < "card_list"."user_id"
+
+Ref: "cards"."id" < "owned"."card_id"
+
+Ref: "cards"."id" < "card_list"."card_id"

@@ -6,8 +6,15 @@
 </script>
 
 <main>
-    <CardInfo id={id} width=700 height=500/>
+    <br/>
+    <div class="deze">
+        <CardInfo id={id} width=1000 height=600/>
+    </div>
 </main>
 
 <style>
+    .deze {
+        display: flex;
+        justify-content: center;
+    }
 </style>

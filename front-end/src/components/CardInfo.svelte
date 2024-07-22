@@ -1,10 +1,13 @@
 <script>
+    import { symbols } from "../utils/lookUpManaSymbol";
+
     export let id;
     export let width;
     export let height;
 
     let card_json = {};
-    let mana_cost= [""];
+    let mana_cost = "";
+    let card_text = "";
 
     async function getCard(id) {
         const url = "https://api.scryfall.com/cards/" + id
@@ -19,16 +22,16 @@
         }
     }
 
-    async function getmanacost(input) {
-        let commaSeparated = input.replace(/}{/g, ',');
-        let noBraces = commaSeparated.replace(/{/g, '').replace(/}/g, '');
-        mana_cost = noBraces.split(/,/g);
-    };
-
+    function replaceManaSymbols(input) {
+        return input.replace(/{.*?}/g, m => symbols[m.slice(1,-1)]+"&nbsp;")
+    }
+    
     async function main() {
         if (id) {
             await getCard(id);
-            getmanacost(card_json.mana_cost)
+            console.log(card_json.oracle_text)
+            card_text = replaceManaSymbols(card_json.oracle_text)
+            mana_cost = replaceManaSymbols(card_json.mana_cost)
         }
     }
 
@@ -54,15 +57,10 @@
         <div class="column">
             <div class="row">
                 <div class="container" style="height: {height}px; overflow-y: scroll; overflow-x:hidden">
-                    <h2 class="card_info">{card_json.name}
-                    <!-- Mana cost -->
-                    {#each mana_cost as symbol}
-                    <i class="ms ms-{symbol.toLowerCase()} ms-cost ms-shadow"></i>&nbsp;
-                    {/each}
-                    </h2>
+                    <h2 class="card_info" style="display: inline;">{card_json.name}</h2>&nbsp;{@html mana_cost}
                     <hr class="card_info_line">
-                    <p class="card_info">{card_json.type_line} *verander "{card_json.set}" en "{card_json.rarity}" naar logo*</p>
-                    <p class="card_info">{card_json.oracle_text}</p>
+                    <p class="card_info">{card_json.type_line} <i class="ss ss-{card_json.set} ss-{card_json.rarity} ss-2x"></i></p>
+                    <p class="card_info">{@html card_text.replaceAll("\n", "<br/>")}</p>
                     {#if card_json.flavor_text}
                     <p class="card_info"><em>{card_json.flavor_text}</em></p>
                     {/if}
@@ -96,6 +94,10 @@
         width: 100%;
         text-align: left;
         margin-left: 0;
+    }
+
+    .card_img {
+        border-radius: 5% 5% 5% 5%;
     }
 
     /* to debug */

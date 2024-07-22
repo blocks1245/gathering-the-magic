@@ -11,6 +11,7 @@
   // pages
   import Home from './pages/Home.svelte';
   import CardInfoPage from './pages/CardInfoPage.svelte';
+  import Login from './pages/Login.svelte';
 
   let page;
   let params;
@@ -22,6 +23,10 @@
   });
   router('/card-info', (ctx) => {
     page = CardInfoPage;
+    currentRoute = ctx.pathname;
+  });
+  router('/login', (ctx) => {
+    page = Login;
     currentRoute = ctx.pathname;
   });
   router.start();

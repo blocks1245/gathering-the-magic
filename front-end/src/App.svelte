@@ -12,6 +12,7 @@
   import Home from './pages/Home.svelte';
   import CardInfoPage from './pages/CardInfoPage.svelte';
   import Login from './pages/Login.svelte';
+  import Register from './pages/Register.svelte';
 
   let page;
   let params;
@@ -29,6 +30,11 @@
     page = Login;
     currentRoute = ctx.pathname;
   });
+  router('/register', (ctx) => {
+    page = Register;
+    currentRoute = ctx.pathname;
+  });
+
   router.start();
 </script>
 

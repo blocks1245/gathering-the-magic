@@ -2,4 +2,4 @@
 data
 
 # ignore all json files (card data)
-*.json
+*cards*.json

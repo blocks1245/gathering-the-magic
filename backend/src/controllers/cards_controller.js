@@ -10,3 +10,9 @@ export async function getCardById(req, res) {
     const card = await db.getCardById(id);
     res.json(card);
 }
+
+export async function getCardByName(req, res) {
+    const name = req.params.name;
+    const card = await db.getCardByName(name);
+    res.json(card);
+}

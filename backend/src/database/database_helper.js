@@ -38,6 +38,10 @@ export async function getCardById(id) {
     return await runQuery(`SELECT * FROM cards WHERE id = '${id}'`);
 }
 
+export async function getCardByName(name) {
+    return await runQuery(`SELECT * FROM cards WHERE name = '${name}'`);
+}
+
 
 // user functions
 export async function getUserByUsername(username) {

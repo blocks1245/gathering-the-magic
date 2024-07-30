@@ -29,10 +29,21 @@ async function runQuery(query) {
 
 // database helper functions
 
+// card functions
 export async function getAllCards() {
     return await runQuery('SELECT * FROM cards');
 }
 
 export async function getCardById(id) {
     return await runQuery(`SELECT * FROM cards WHERE id = '${id}'`);
+}
+
+
+// user functions
+export async function getUserByUsername(username) {
+    return await runQuery(`SELECT * FROM users WHERE username = '${username}'`);
+}
+
+export async function addUser(username, password) {
+    return await runQuery(`INSERT INTO users (username, password) VALUES ('${username}', '${password}')`);
 }

@@ -9,6 +9,7 @@
     let mana_cost = "";
     let card_text = "";
 
+    // TODO: change scryfall api to internal api
     async function getCard(id) {
         const url = "https://api.scryfall.com/cards/" + id
         try {

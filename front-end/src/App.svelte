@@ -33,8 +33,8 @@
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" href="src\css\keyrune.css" />
-  <link rel="stylesheet" href="src\css\mana.css" />
+  <link rel="stylesheet" href="src\css\keyrune.css" />  <!-- Set symbols font -->
+  <link rel="stylesheet" href="src\css\mana.css" />     <!-- Mana and Mana related symbols font -->
 </svelte:head>
 
 <main>

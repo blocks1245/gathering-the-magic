@@ -39,7 +39,7 @@ export async function getCardById(id) {
 }
 
 export async function getCardByName(name) {
-    return await runQuery(`SELECT * FROM cards WHERE name = '${name}'`);
+    return await runQuery(`SELECT * FROM cards WHERE UPPER(name) like UPPER('${name}')`);
 }
 
 

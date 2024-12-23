@@ -7,6 +7,7 @@
         <li><a class:active={active === "/card-info"} href="/card-info">Card info</a></li>
         <li><a class:active={active === "/card-search"} href="/card-search">Search Cards</a></li>
 
+
         <li><a class:active={active === "/login"} href="/login">Login</a></li>
         <li><a class:active={active === "/register"} href="/register">Register</a></li>
     </ul>

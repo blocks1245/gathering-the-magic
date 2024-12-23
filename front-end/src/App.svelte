@@ -40,6 +40,7 @@
     currentRoute = ctx.pathname;
   });
 
+
   router.start();
 </script>
 

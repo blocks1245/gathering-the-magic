@@ -13,6 +13,7 @@
   import CardInfoPage from './pages/CardInfoPage.svelte';
   import Login from './pages/Login.svelte';
   import Register from './pages/Register.svelte';
+  import CardSearch from './pages/CardSearch.svelte';
 
   let page;
   let params;
@@ -32,6 +33,10 @@
   });
   router('/register', (ctx) => {
     page = Register;
+    currentRoute = ctx.pathname;
+  });
+  router('/card-search', (ctx) => {
+    page = CardSearch;
     currentRoute = ctx.pathname;
   });
 

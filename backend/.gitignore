@@ -1,0 +1,5 @@
+# ignore all image data
+data
+
+# ignore all json files (card data)
+*cards*.json

@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: gtm
+      POSTGRES_PASSWORD: gtm
+      POSTGRES_DB: gtm
+    volumes:
+      - ./backend/database/data:/var/lib/postgresql/data
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gtm"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - 5432:5432
+
+  db_init:
+    build: ./backend/database/.
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: gtm
+      POSTGRES_PASSWORD: gtm
+      POSTGRES_DB: gtm
+
+  backend:
+    build: ./backend/.
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: gtm
+      POSTGRES_PASSWORD: gtm
+      POSTGRES_DB: gtm
+      JWT_SECRET: MyVerySecretToken
+    ports:
+      - 3000:3000

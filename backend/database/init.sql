@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- Create the active_users view
-CREATE VIEW IF NOT EXISTS active_users AS SELECT * FROM users WHERE is_deleted = FALSE;
+CREATE VIEW active_users AS SELECT * FROM users WHERE is_deleted = FALSE;
 
 -- Create the auth_log table
 CREATE TABLE IF NOT EXISTS auth_log (
@@ -106,6 +106,12 @@ CREATE TABLE IF NOT EXISTS cards (
     hand_modifier INTEGER,
     content_warning INTEGER
 );
+
+-- Create card Indexes
+CREATE INDEX idx_cards_name ON cards(name);
+CREATE INDEX idx_cards_id ON cards(id);
+CREATE INDEX idx_cards_rarity ON cards(rarity);
+CREATE INDEX idx_cards_set ON cards(set);
 
 -- Create the owned table
 CREATE TABLE IF NOT EXISTS owned (

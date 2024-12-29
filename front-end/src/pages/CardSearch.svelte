@@ -1,5 +1,6 @@
 <script>
     import { get } from "svelte/store";
+    import { get } from "svelte/store";
     import CardList from "../components/CardList.svelte";
     import { queryToJson } from "../utils/queryToJson";
 

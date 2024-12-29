@@ -7,17 +7,44 @@
     const user_query = urlParams.get('query');
     const page = Number(urlParams.get('page'))
 
-    let thingy = {};
+    let backend_response = {};
+
+    function next_page() {
+        if (page == 0) {
+            change_page(2)
+        } else {
+            change_page(page+1)
+        }
+        return void {};
+    };
+
+    function previous_page() {
+        if (page >= 2) {
+            change_page(page-1)
+        }
+        return void {};
+    };
+
+    function change_page(to) {
+        const url = location.toString().split('?')[0]
+        const newUrl = url + '?query=' + encodeURIComponent(user_query) + '&page=' + encodeURIComponent(String(to))
+        document.location.href = newUrl;
+    }
 
     async function send_query(body) {
         const url = "http://localhost:3000/search/"
+        const options = {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify(body)
+        };
         try {
-            const response = await fetch(url, {body: JSON.stringify(body), method: 'POST'});
+            const response = await fetch(url, options);
             if (!response.ok) {
                 throw new Error(`Response status: ${response.status}`);
             }
-            thingy = await response.json();
-            console.log(thingy)
+            backend_response = await response.json();
+            console.log(backend_response)
         } catch (error) {
             console.error(error.message);
         }
@@ -34,8 +61,20 @@
             };
             console.log(body)
             send_query(body)
+
+            window.addEventListener("DOMContentLoaded", (event) => {
+            const next = document.getElementById('next_page');
+            const previous = document.getElementById('previous_page')
+            if (next) {
+                next.addEventListener('click', next_page, false);
+            }
+            if (previous) {
+                previous.addEventListener('click', previous_page, false);
+            }
+            });
         }
     };
+
 
     main();
 </script>
@@ -45,6 +84,8 @@
         <form>
             <input id="search_bar" name="query" placeholder="Search for a card" value={user_query}/>
         </form>
+        <button id="previous_page">Previous page</button>
+        <button id="next_page">Next page</button>
     </div>
     <div>
         <CardList/>

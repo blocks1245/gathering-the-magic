@@ -13,7 +13,7 @@ export function queryToJson(user_input) {
     query_json.rarity = [];
     query_json.mana_value = [];
     query_json.mana_cost = [];
-
+    query_json.set = [];
     
     for (const argument of query) {
         let keyword, value = [null, null]
@@ -82,9 +82,12 @@ export function queryToJson(user_input) {
                 query_json.mana_cost.push(value);
                 break;
 
+            case "s":
+            case "set":
+                query_json.set.push(value)
         }
 
     }
 
-    return JSON.stringify(query_json)
+    return query_json
 }

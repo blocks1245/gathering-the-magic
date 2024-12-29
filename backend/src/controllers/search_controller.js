@@ -15,9 +15,9 @@ const keyToColumnMapping = {
 };
 
 const operatorMapping = {
-    "=": "=",
-    ":": "=",
-    "!": "!=",
+    "=": "ilike", // lowercase to differenciate it from the not exact match versions
+    ":": "iLIKE",
+    "!": "!iLIKE",
     "<": "<",
     ">": ">",
 };
@@ -45,7 +45,7 @@ function constructQuery(jsonData) {
             }
 
             conditions.push(`${column} ${operator} $${parameters.length + 1}`);
-            parameters.push(value);
+            parameters.push(operator.includes("LIKE") ? `%${value}%` : value);
         });
     });
     return { conditions, parameters };

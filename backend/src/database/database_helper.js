@@ -59,6 +59,7 @@ export async function search(conditions, parameters, page) {
     }
     if (conditions.length > 0) {
         const query = `SELECT id, name, set, image_uris FROM cards` + (conditions.length > 0 ? ` WHERE ${conditions.join(" AND ")}` : "") + ` ORDER BY name LIMIT ${page_size} OFFSET ${(page*page_size)-page_size};`;
+        console.log(query);
         return await runQuery(query, parameters);
     } else {
         return [];

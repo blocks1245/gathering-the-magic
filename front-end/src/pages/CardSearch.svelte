@@ -27,7 +27,7 @@
         if (user_query) {
             let body = Object();
             body.search_data = (queryToJson(user_query));
-            if (isNaN(page)) {
+            if (isNaN(page) || page < 1) {
                 body.page = 1;
             } else {
                 body.page = page;
